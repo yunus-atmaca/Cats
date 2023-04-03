@@ -24,22 +24,21 @@ const {
       return { favorites: action.payload }
     },
     addCat: (state, action: PayloadAction<ICat>) => {
-      let f: ICat[] = JSON.parse(JSON.stringify(state.favorites)) //clone
+      let f = [...state.favorites]
       const found = f.some(c => c.id === action.payload.id)
       if (!found) f.push(action.payload)
 
       Storage.save(Constants.FAVORITE_CATS, JSON.stringify(f))
-      return { ...state, favorites: f }
+      return { favorites: f }
     },
     removeCat: (state, action: PayloadAction<ICat>) => {
-      let f: ICat[] = JSON.parse(JSON.stringify(state.favorites)) //clone
-      f = f.filter(c => {
-        return c.id !== action.payload.id
-      })
+      var f = [...state.favorites]
+      var index = f.findIndex(e => e.id === action.payload.id)
+      if (index !== -1) f.splice(index, 1)
 
       Storage.save(Constants.FAVORITE_CATS, JSON.stringify(f))
 
-      return { ...state, favorites: f }
+      return { favorites: f }
     },
   },
 })

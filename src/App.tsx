@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { SafeAreaView, StatusBar } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import Orientation from 'react-native-orientation-locker'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -8,7 +9,6 @@ import { Provider } from 'react-redux'
 import { useSession } from '@src/hooks/app'
 import RootStackNav from '@src/navigation/RootStackNav'
 import { store } from '@src/store'
-import { SafeAreaView } from 'react-native'
 
 const Root = () => {
   const session = useSession()

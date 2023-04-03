@@ -1,10 +1,13 @@
 import React, { FC } from 'react'
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import { ScaledSheet } from 'react-native-size-matters'
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 
-import { useAppDispatch } from '@src/types/store'
+import { useAppDispatch, useAppSelector } from '@src/types/store'
 import { Constants, Storage } from '@src/utils'
 import { setUser } from '@src/store/controllers/auth'
+import { Styles } from '@src/res'
+
+import Cat from '../CatsByACategory/Cat'
 
 type Props = {
   user: IUser
@@ -12,17 +15,40 @@ type Props = {
 
 const User: FC<Props> = ({ user }) => {
   const dispatch = useAppDispatch()
+  const favorites = useAppSelector(s => s.favoriteController.favorites)
 
   const onLogout = () => {
     Storage.save(Constants.USER_KEY, '')
     dispatch(setUser(undefined as any))
   }
 
+  const renderFavorite = (item: ICat, index: number) => {
+    return <Cat key={'c' + index} c={item} />
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Text style={styles.info}>USER INFO</Text>
-        <Text style={styles.text}>{JSON.stringify(user)}</Text>
+        <View style={styles.infoC}>
+          <Image source={{ uri: user.user.photo }} style={styles.photo} />
+          <View style={styles.texts}>
+            <Text numberOfLines={1} style={styles.text}>
+              {(user.user.givenName + ' ' + user.user.familyName).toUpperCase()}
+            </Text>
+            <Text numberOfLines={1} style={styles.text}>
+              {user.user.email}
+            </Text>
+            <Text numberOfLines={1} style={styles.text}>
+              {user.user.id}
+            </Text>
+          </View>
+        </View>
+
+        {favorites.length > 0 && <Text style={styles.fText}>Favorites</Text>}
+        {favorites.length > 0 &&
+          favorites.map((f, i) => {
+            return renderFavorite(f, i)
+          })}
       </ScrollView>
       <TouchableOpacity onPress={onLogout} style={styles.button}>
         <Text style={styles.logout}>Logout</Text>
@@ -35,17 +61,34 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
   },
-  info: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: 'black',
-    margin: '16@ms',
+  photo: {
+    width: '96@ms',
+    height: '96@ms',
+    borderRadius: 300,
+  },
+  infoC: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: '16@ms',
+  },
+  texts: {
+    marginStart: '12@ms',
+    height: '96@ms',
+    //backgroundColor: 'red',
+    maxWidth: Styles.S_WIDTH - moderateScale(140),
+    justifyContent: 'space-between',
+    paddingVertical: '12@ms',
   },
   text: {
-    margin: '16@ms',
-    fontSize: 12,
-    fontWeight: '500',
+    fontSize: 16,
     color: 'black',
+  },
+  fText: {
+    fontSize: 24,
+    color: 'black',
+    marginStart: '16@ms',
+    fontWeight: '600',
+    marginVertical: '12@ms',
   },
   button: {
     width: '100%',

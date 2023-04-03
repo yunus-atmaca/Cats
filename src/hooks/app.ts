@@ -1,3 +1,4 @@
+import { setUser } from '@src/store/controllers/auth'
 import { setCats } from '@src/store/controllers/favorite'
 import { useAppDispatch } from '@src/types/store'
 import { Constants, Storage } from '@src/utils'
@@ -14,14 +15,14 @@ export const useSession = () => {
 
   const loadInitialApp = async () => {
     const f = await Storage.load(Constants.FAVORITE_CATS)
-    if (f) {
-      const parsed = JSON.parse(f)
-      dispatch(setCats(parsed))
-    }
+    if (f) dispatch(setCats(JSON.parse(f)))
+
+    const u = await Storage.load(Constants.USER_KEY)
+    if (u) dispatch(setUser(JSON.parse(u)))
 
     setTimeout(() => {
       setSession('LOADED')
-    }, 750)
+    }, 500)
   }
 
   return session

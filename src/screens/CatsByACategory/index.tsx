@@ -32,7 +32,7 @@ const CatsByACategory: FC<CreatorScreenProps<'CatsByACategory'>> = ({
           keyExtractor={(_, i) => 'c-' + i}
         />
       )}
-      {catRes.items.length === 0 && (
+      {!catRes.loading && catRes.items.length === 0 && (
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text style={styles.empty}>There is no cat in that category</Text>

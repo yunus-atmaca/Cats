@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react'
 import { Share, TouchableOpacity, View, Image, Alert } from 'react-native'
-import { ScaledSheet } from 'react-native-size-matters'
+import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 
-import { Ic_Share, Ic_Favorite } from '@src/res'
+import { Ic_Share, Ic_Favorite, Styles } from '@src/res'
 import { useAppDispatch, useAppSelector } from '@src/types/store'
 import { addCat, removeCat } from '@src/store/controllers/favorite'
 import { getNavContainerRef } from '@src/types/navigation'
+import { useEffect } from 'react'
 
 type Props = {
   c: ICat
@@ -14,10 +15,11 @@ type Props = {
 const Cat: FC<Props> = ({ c }) => {
   const dispatch = useAppDispatch()
   const favorites = useAppSelector(s => s.favoriteController.favorites)
+  const [isFavorite, setIsFavorite] = useState<boolean>()
 
-  const [isFavorite, setIsFavorite] = useState(
-    favorites.some(cat => cat.id === c.id),
-  )
+  useEffect(() => {
+    setIsFavorite(favorites.some(cat => cat.id === c.id))
+  }, [favorites])
 
   /*useEffect(()=>{
     console.debug('useEffect')
@@ -45,9 +47,7 @@ const Cat: FC<Props> = ({ c }) => {
   }
 
   const onFavorite = () => {
-    const newState = !isFavorite
-    setIsFavorite(newState)
-
+    const newState = !favorites.some(cat => cat.id === c.id)
     if (newState) {
       dispatch(addCat(c))
     } else {
