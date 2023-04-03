@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import { useSession } from '@src/hooks/app'
 import RootStackNav from '@src/navigation/RootStackNav'
 import { store } from '@src/store'
+import { SafeAreaView } from 'react-native'
 
 const Root = () => {
   const session = useSession()
@@ -25,7 +26,9 @@ const Root = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <RootStackNav />
+        <SafeAreaView style={{ flex: 1 }}>
+          <RootStackNav />
+        </SafeAreaView>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   )
