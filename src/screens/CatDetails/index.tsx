@@ -5,6 +5,7 @@ import { CreatorScreenProps } from '@src/types/navigation'
 import { ScaledSheet } from 'react-native-size-matters'
 
 import { Header } from '@src/components'
+import { Styles } from '@src/res'
 
 const CatDetails: FC<CreatorScreenProps<'CatDetails'>> = ({ route }) => {
   const { cat } = route.params
@@ -39,8 +40,9 @@ const styles = ScaledSheet.create({
   },
   image: {
     width: '100%',
-    height: '180@ms',
+    height: Styles.S_HEIGHT / 2,
     borderRadius: '16@ms',
+    resizeMode: 'contain',
   },
   text: {
     color: 'black',

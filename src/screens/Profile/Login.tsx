@@ -6,10 +6,10 @@ import React, { FC } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
-
 import { setUser } from '@src/store/controllers/auth'
 import { useAppDispatch } from '@src/types/store'
 import { Constants, Storage } from '@src/utils'
+import { Alert } from 'react-native'
 
 type Props = {}
 
@@ -50,6 +50,7 @@ const Login: FC<Props> = ({}) => {
         // some other error happened
         console.debug('some other error happened')
       }
+      Alert.alert('Error!', JSON.stringify(error))
     }
 
     return retValue

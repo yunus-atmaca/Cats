@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { Share, TouchableOpacity, View, Image, Alert } from 'react-native'
-import { moderateScale, ScaledSheet } from 'react-native-size-matters'
+import { ScaledSheet } from 'react-native-size-matters'
 
 import { Ic_Share, Ic_Favorite, Styles } from '@src/res'
 import { useAppDispatch, useAppSelector } from '@src/types/store'
@@ -14,6 +14,8 @@ type Props = {
 
 const Cat: FC<Props> = ({ c }) => {
   const dispatch = useAppDispatch()
+
+  const user = useAppSelector(s => s.authController.user)
   const favorites = useAppSelector(s => s.favoriteController.favorites)
   const [isFavorite, setIsFavorite] = useState<boolean>()
 
@@ -47,11 +49,15 @@ const Cat: FC<Props> = ({ c }) => {
   }
 
   const onFavorite = () => {
-    const newState = !favorites.some(cat => cat.id === c.id)
-    if (newState) {
-      dispatch(addCat(c))
+    if (user) {
+      const newState = !favorites.some(cat => cat.id === c.id)
+      if (newState) {
+        dispatch(addCat(c))
+      } else {
+        dispatch(removeCat(c))
+      }
     } else {
-      dispatch(removeCat(c))
+      Alert.alert('Warning!', 'You have to login to the app!')
     }
   }
 

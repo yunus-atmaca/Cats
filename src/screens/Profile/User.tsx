@@ -8,6 +8,7 @@ import { setUser } from '@src/store/controllers/auth'
 import { Styles } from '@src/res'
 
 import Cat from '../CatsByACategory/Cat'
+import { setCats } from '@src/store/controllers/favorite'
 
 type Props = {
   user: IUser
@@ -19,6 +20,8 @@ const User: FC<Props> = ({ user }) => {
 
   const onLogout = () => {
     Storage.save(Constants.USER_KEY, '')
+    Storage.save(Constants.FAVORITE_CATS, '')
+    dispatch(setCats([]))
     dispatch(setUser(undefined as any))
   }
 
@@ -44,11 +47,14 @@ const User: FC<Props> = ({ user }) => {
           </View>
         </View>
 
-        {favorites.length > 0 && <Text style={styles.fText}>Favorites</Text>}
+        <Text style={styles.fText}>Favorites</Text>
         {favorites.length > 0 &&
           favorites.map((f, i) => {
             return renderFavorite(f, i)
           })}
+        {favorites.length === 0 && (
+          <Text style={styles.noFText}>There are no favorites cats</Text>
+        )}
       </ScrollView>
       <TouchableOpacity onPress={onLogout} style={styles.button}>
         <Text style={styles.logout}>Logout</Text>
@@ -89,6 +95,14 @@ const styles = ScaledSheet.create({
     marginStart: '16@ms',
     fontWeight: '600',
     marginVertical: '12@ms',
+  },
+  noFText: {
+    fontSize: 14,
+    color: 'black',
+    marginStart: '16@ms',
+    marginVertical: '12@ms',
+    alignSelf: 'center',
+    textAlign: 'center',
   },
   button: {
     width: '100%',

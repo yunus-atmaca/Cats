@@ -9,6 +9,6 @@ export const store = configureStore({
     authController: AuthController.reducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({ serializableCheck: false }),
-  //getDefaultMiddleware({ serializableCheck: false }).concat(logger),
+    //getDefaultMiddleware({ serializableCheck: false }),
+    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
 })
