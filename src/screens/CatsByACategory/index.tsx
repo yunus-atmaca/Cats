@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react'
-import { View, FlatList, FlatListProps } from 'react-native'
+import { Text, View, FlatList, FlatListProps } from 'react-native'
 
 import { CreatorScreenProps } from '@src/types/navigation'
 import { ScaledSheet } from 'react-native-size-matters'
 
 import { Header } from '@src/components'
 import { useCats } from '@src/hooks/api'
+import { OverlayLoading } from '@src/components'
 
 import Cat from './Cat'
 
@@ -31,6 +32,13 @@ const CatsByACategory: FC<CreatorScreenProps<'CatsByACategory'>> = ({
           keyExtractor={(_, i) => 'c-' + i}
         />
       )}
+      {catRes.items.length === 0 && (
+        <View
+          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={styles.empty}>There is no cat in that category</Text>
+        </View>
+      )}
+      {catRes.loading && <OverlayLoading />}
     </View>
   )
 }
@@ -38,6 +46,11 @@ const CatsByACategory: FC<CreatorScreenProps<'CatsByACategory'>> = ({
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
+  },
+  empty: {
+    fontSize: 18,
+    color: 'black',
+    fontWeight: '600',
   },
 })
 
