@@ -4,7 +4,7 @@ import { View, Image, Text } from 'react-native'
 import { CreatorScreenProps } from '@src/types/navigation'
 import { ScaledSheet } from 'react-native-size-matters'
 
-import Header from '../CatsByACategory/Header'
+import { Header } from '@src/components'
 
 const CatDetails: FC<CreatorScreenProps<'CatDetails'>> = ({ route }) => {
   const { cat } = route.params

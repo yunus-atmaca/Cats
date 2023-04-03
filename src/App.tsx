@@ -9,7 +9,7 @@ import { useSession } from '@src/hooks/app'
 import RootStackNav from '@src/navigation/RootStackNav'
 import { store } from '@src/store'
 
-const App = () => {
+const Root = () => {
   const session = useSession()
 
   useEffect(() => {
@@ -23,12 +23,18 @@ const App = () => {
   }, [session])
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <RootStackNav />
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
+  )
+}
+
+const App = () => {
+  return (
     <Provider store={store}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaProvider>
-          <RootStackNav />
-        </SafeAreaProvider>
-      </GestureHandlerRootView>
+      <Root />
     </Provider>
   )
 }

@@ -14,12 +14,15 @@ const defState: State = {
 const initialState = defState
 
 const {
-  actions: { addCat, removeCat },
+  actions: { addCat, removeCat, setCats },
   reducer,
 } = createSlice({
   name,
   initialState: initialState,
   reducers: {
+    setCats: (_, action: PayloadAction<ICat[]>) => {
+      return { favorites: action.payload }
+    },
     addCat: (state, action: PayloadAction<ICat>) => {
       let f: ICat[] = JSON.parse(JSON.stringify(state.favorites)) //clone
       const found = f.some(c => c.id === action.payload.id)
@@ -41,4 +44,4 @@ const {
   },
 })
 
-export { reducer, addCat, removeCat }
+export { reducer, addCat, removeCat, setCats }

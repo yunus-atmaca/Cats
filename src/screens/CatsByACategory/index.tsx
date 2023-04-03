@@ -4,7 +4,7 @@ import { View, FlatList, FlatListProps } from 'react-native'
 import { CreatorScreenProps } from '@src/types/navigation'
 import { ScaledSheet } from 'react-native-size-matters'
 
-import Header from './Header'
+import { Header } from '@src/components'
 import { useCats } from '@src/hooks/api'
 
 import Cat from './Cat'

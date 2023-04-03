@@ -5,7 +5,6 @@ import { ScaledSheet } from 'react-native-size-matters'
 import { Ic_Share, Ic_Favorite } from '@src/res'
 import { useAppDispatch, useAppSelector } from '@src/types/store'
 import { addCat, removeCat } from '@src/store/controllers/favorite'
-import { useEffect } from 'react'
 import { getNavContainerRef } from '@src/types/navigation'
 
 type Props = {

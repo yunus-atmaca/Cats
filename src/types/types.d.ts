@@ -9,5 +9,12 @@ interface ICat {
   id: string
   width: number
   categories: ICatCategory[]
-  url:string
+  url: string
+}
+
+interface IUser {
+  idToken: string
+  scope: string[]
+  serverAuthCode: string
+  user: any
 }
