@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
-import { View, Text } from 'react-native'
+import { TouchableOpacity, View, Text } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
+
+import { Ic_ArrowForward } from '@src/res/'
+import { getNavContainerRef } from '@src/types/navigation'
 
 type Props = {
   category: ICatCategory
@@ -8,17 +11,30 @@ type Props = {
 
 const CatCategory: FC<Props> = ({ category }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{category.name}</Text>
-    </View>
+    <TouchableOpacity
+      onPress={() =>
+        getNavContainerRef().navigate('CatsByACategory', {
+          id: category.id,
+        })
+      }
+      style={styles.container}>
+      <Text style={styles.text}>{category.name.toUpperCase()}</Text>
+      <Ic_ArrowForward />
+    </TouchableOpacity>
   )
 }
 
 const styles = ScaledSheet.create({
   container: {
     width: '100%',
-    paddingVertical: '8@ms',
+    //paddingVertical: '8@ms',
     paddingHorizontal: '16@ms',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'grey',
+    height: '56@ms',
   },
   text: {
     fontSize: 18,

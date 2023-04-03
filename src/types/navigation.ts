@@ -7,6 +7,9 @@ export type AllRoutes = {
   Home: undefined
   Profile: undefined
   Details: undefined
+  CatsByACategory: {
+    id: number
+  }
 }
 
 export type RouteProp = NavigationProp<AllRoutes>

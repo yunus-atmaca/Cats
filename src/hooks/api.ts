@@ -19,6 +19,10 @@ const useCategories = (refresh: number = 0) => {
 
   useEffect(() => {
     getCategories()
+
+    return () => {
+      setState(defaultState)
+    }
   }, [])
 
   useEffect(() => {
