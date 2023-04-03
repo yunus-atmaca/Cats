@@ -8,7 +8,7 @@ export type AllRoutes = {
   Profile: undefined
   Details: undefined
   CatsByACategory: {
-    id: number
+    category: ICatCategory
   }
 }
 

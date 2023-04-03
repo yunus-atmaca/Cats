@@ -14,7 +14,7 @@ const CatCategory: FC<Props> = ({ category }) => {
     <TouchableOpacity
       onPress={() =>
         getNavContainerRef().navigate('CatsByACategory', {
-          id: category.id,
+          category,
         })
       }
       style={styles.container}>

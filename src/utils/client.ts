@@ -5,6 +5,7 @@ const BASE_URL = 'https://api.thecatapi.com/v1/'
 
 export const EndPoints = {
   categories: 'categories',
+  searchImages: 'images/search?',
 }
 
 export const client = axios.create({

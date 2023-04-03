@@ -3,9 +3,11 @@ import SplashScreen from 'react-native-splash-screen'
 import Orientation from 'react-native-orientation-locker'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { Provider } from 'react-redux'
 
 import { useSession } from '@src/hooks/app'
 import RootStackNav from '@src/navigation/RootStackNav'
+import { store } from '@src/store'
 
 const App = () => {
   const session = useSession()
@@ -21,11 +23,13 @@ const App = () => {
   }, [session])
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <RootStackNav />
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <Provider store={store}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider>
+          <RootStackNav />
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </Provider>
   )
 }
 

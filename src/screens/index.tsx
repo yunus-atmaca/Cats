@@ -1,4 +1,5 @@
 import Home from './Home'
 import Profile from './Profile'
+import CatsByACategory from './CatsByACategory'
 
-export { Home, Profile }
+export { Home, Profile, CatsByACategory }

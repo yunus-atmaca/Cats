@@ -5,7 +5,7 @@ import { client, EndPoints } from '@src/utils/client'
 export type HOOK_STATE = {
   loading: boolean
   error: boolean
-  items: ICatCategory[]
+  items: any
 }
 
 export const defaultState: HOOK_STATE = {
@@ -50,4 +50,27 @@ const useCategories = (refresh: number = 0) => {
   return state
 }
 
-export { useCategories }
+const useCats = (id: number, page: number) => {
+  const [state, setState] = useState<HOOK_STATE>(defaultState)
+
+  useEffect(() => {
+    getCats(page)
+  }, [page])
+
+  const getCats = async (page: number) => {
+    const res = await client.get(
+      EndPoints.searchImages +
+        `page=${page}order=ASC&limit=25&mime_types=png&category_ids=${id}`,
+    )
+
+    if (res.status === 200) {
+      setState({ loading: false, error: false, items: res.data })
+    } else {
+      setState({ loading: false, error: true, items: [] })
+    }
+  }
+
+  return state
+}
+
+export { useCategories, useCats }
