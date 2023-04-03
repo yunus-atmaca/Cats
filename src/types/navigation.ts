@@ -10,6 +10,9 @@ export type AllRoutes = {
   CatsByACategory: {
     category: ICatCategory
   }
+  CatDetails: {
+    cat: ICat
+  }
 }
 
 export type RouteProp = NavigationProp<AllRoutes>

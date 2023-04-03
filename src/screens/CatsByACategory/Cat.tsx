@@ -6,6 +6,7 @@ import { Ic_Share, Ic_Favorite } from '@src/res'
 import { useAppDispatch, useAppSelector } from '@src/types/store'
 import { addCat, removeCat } from '@src/store/controllers/favorite'
 import { useEffect } from 'react'
+import { getNavContainerRef } from '@src/types/navigation'
 
 type Props = {
   c: ICat
@@ -58,11 +59,16 @@ const Cat: FC<Props> = ({ c }) => {
   return (
     <View style={styles.container}>
       <View style={styles.cat}>
-        <Image
-          style={{ width: '100%', height: 180 }}
-          resizeMode={'cover'}
-          source={{ uri: c.url }}
-        />
+        <TouchableOpacity
+          onPress={() =>
+            getNavContainerRef().navigate('CatDetails', { cat: c })
+          }>
+          <Image
+            style={{ width: '100%', height: 180 }}
+            resizeMode={'cover'}
+            source={{ uri: c.url }}
+          />
+        </TouchableOpacity>
         <View style={styles.buttons}>
           <TouchableOpacity
             onPress={onFavorite}
