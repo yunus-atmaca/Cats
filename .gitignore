@@ -64,3 +64,8 @@ buck-out/
 /vendor/bundle/
 
 /android/app/release
+/android/app/google-services.json
+/android/app/release.jks
+/android/key.properties
+
+/ios/GoogleService-Info.plist
